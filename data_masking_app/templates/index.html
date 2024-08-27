@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Masking Application</title>
+</head>
+<body>
+    <h1>Upload CSV File for Data Masking</h1>
+
+    <!-- Display the message if it exists -->
+    {% if message %}
+        <p style="color:red;">{{ message }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv" required>
+        <button type="submit">Upload and Mask Data</button>
+    </form>
+</body>
+</html>
