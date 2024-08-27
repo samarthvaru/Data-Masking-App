@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file
+from flask import Flask, render_template, request, redirect, url_for, send_file, session
 import os
 import csv
 from masking import mask_data
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads/'
+app.secret_key = 'your_secret_key'
 
 # Ensure the upload folder exists
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
@@ -12,7 +13,12 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 
 @app.route('/')
 def index():
-    return render_template('index.html', message='')
+    # Retrieve masked data from session if available
+    masked_data = session.get('masked_data', [])
+    # Clear the masked data from session
+    session.pop('masked_data', None)
+    session.pop('masked_filepath', None)
+    return render_template('index.html', masked_data=masked_data)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -46,11 +52,22 @@ def upload_file():
             writer.writeheader()
             writer.writerows(masked_data)
 
-        return send_file(masked_filepath, as_attachment=True)
+        # Store masked data in session
+        session['masked_data'] = masked_data
+        session['masked_filepath'] = masked_filepath
+
+        return redirect(url_for('index'))  # Redirect to the index page
 
     else:
         message = 'Invalid file format. Please upload a CSV file.'
         return render_template('index.html', message=message)
+
+@app.route('/download')
+def download_file():
+    masked_filepath = session.get('masked_filepath')
+    if masked_filepath and os.path.exists(masked_filepath):
+        return send_file(masked_filepath, as_attachment=True)
+    return "File not found or has been removed."
 
 if __name__ == '__main__':
     app.run(debug=True)
