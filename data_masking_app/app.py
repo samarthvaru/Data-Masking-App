@@ -39,8 +39,8 @@ def mask_text_data(text):
     # Define regex patterns for sensitive information
     email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
     credit_card_pattern = r'\b(?:\d[ -]*?){13,16}\b'
-    sin_pattern = r'\b\d{3}-\d{3}-\d{3}\b'
-    phone_pattern = r'\b\d{10}\b'
+    sin_pattern = r'\b\d{3}-\d{2}-\d{4}\b'  # Corrected SSN pattern
+    phone_pattern = r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b'  # Improved phone number pattern
 
     # Mask patterns in text
     text = re.sub(email_pattern, lambda x: mask_email(x.group()), text)
