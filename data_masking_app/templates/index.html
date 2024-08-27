@@ -4,57 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Masking Application</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Upload CSV File for Data Masking</h1>
+    <div class="container">
+        <h1>Data Masking Application</h1>
 
-    <!-- Display the message if it exists -->
-    {% if message %}
-        <p style="color:red;">{{ message }}</p>
-    {% endif %}
+        <!-- Display a success message if applicable -->
+        {% if success_message %}
+            <p class="success">{{ success_message }}</p>
+        {% endif %}
 
-    <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".csv" required>
-        <button type="submit">Upload and Mask Data</button>
-    </form>
+        <!-- Display an error message if applicable -->
+        {% if message %}
+            <p class="error">{{ message }}</p>
+        {% endif %}
 
-    <!-- Display masked data in table format -->
-    {% if masked_data %}
-        <h2>Masked Data</h2>
-        <table>
-            <thead>
-                <tr>
-                    {% for column in masked_data[0].keys() %}
-                        <th>{{ column }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in masked_data %}
+        <!-- File upload form -->
+        <div id="file-upload" class="file-upload">
+            <h2>Upload CSV File for Data Masking</h2>
+            <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" accept=".csv" required>
+                <button type="submit">Upload and Mask Data</button>
+            </form>
+        </div>
+
+        <!-- Button to upload another file -->
+        <div id="upload-again" class="upload-again hidden">
+            <h2>Upload Another File</h2>
+            <button onclick="showUploadForm()">Upload Another File</button>
+        </div>
+
+        <!-- Display masked data count -->
+        <h2>Total Masked Data Samples: {{ masked_count }}</h2>
+
+        <!-- Display masked data in table format -->
+        {% if masked_data %}
+            <h2>Masked Data</h2>
+            <table>
+                <thead>
                     <tr>
-                        {% for value in row.values() %}
-                            <td>{{ value }}</td>
+                        {% for column in masked_data[0].keys() %}
+                            <th>{{ column }}</th>
                         {% endfor %}
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for row in masked_data %}
+                        <tr>
+                            {% for value in row.values() %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-        <!-- Provide a link to download the masked file -->
-        <a href="{{ url_for('download_file') }}">Download Masked File</a>
-    {% endif %}
+            <!-- Provide a link to download the masked file -->
+            <a href="{{ url_for('download_file') }}" class="btn-download">Download Masked File</a>
+
+            <!-- Hide the upload form and show the button to upload another file -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.getElementById('file-upload').classList.add('hidden');
+                    document.getElementById('upload-again').classList.remove('hidden');
+                });
+
+                function showUploadForm() {
+                    document.getElementById('file-upload').classList.remove('hidden');
+                    document.getElementById('upload-again').classList.add('hidden');
+                }
+            </script>
+        {% endif %}
+
+        <!-- Instructions for users -->
+        <div class="instructions">
+            <h2>Instructions</h2>
+            <ul>
+                <li>Upload a CSV file with columns like <strong>email</strong> and <strong>phone</strong>.</li>
+                <li>The application will mask sensitive information in the file.</li>
+                <li>After processing, you can download the masked file.</li>
+                <li>Total number of data samples masked will be displayed on the dashboard.</li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
