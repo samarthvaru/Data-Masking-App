@@ -1,4 +1,5 @@
 /* Basic reset for margins and paddings */
+
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +14,8 @@ body {
     padding: 20px;
 }
 
-h1, h2 {
+h1,
+h2 {
     color: #007bff;
 }
 
@@ -31,7 +33,8 @@ h1 {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.file-upload, .upload-again {
+.file-upload,
+.upload-again {
     margin-bottom: 20px;
 }
 
@@ -67,17 +70,32 @@ input[type="file"] {
     margin-top: 10px;
 }
 
+
+/* Add this to your existing CSS file */
+
+.table-container {
+    max-height: 400px;
+    /* Adjust the height as needed */
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
+    border: 1px solid #ddd;
+    /* Optional: Add border for better visibility */
+    border-radius: 8px;
+    /* Optional: Rounded corners */
+    background: #fff;
+    /* Optional: Background color */
+    margin-top: 20px;
+    /* Space above the table */
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
+th,
+td {
     padding: 10px;
     text-align: left;
 }

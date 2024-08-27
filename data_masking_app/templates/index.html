@@ -8,7 +8,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>Data Masking Application</h1>
+        <a href="{{ url_for('index') }}" class="title-link">
+            <h1>Data Masking Application</h1>
+        </a>
 
         <!-- Display a success message if applicable -->
         {% if success_message %}
@@ -31,7 +33,6 @@
 
         <!-- Button to upload another file -->
         <div id="upload-again" class="upload-again hidden">
-            <h2>Upload Another File</h2>
             <button onclick="showUploadForm()">Upload Another File</button>
         </div>
 
@@ -41,6 +42,7 @@
         <!-- Display masked data in table format -->
         {% if masked_data %}
             <h2>Masked Data</h2>
+            <div class="table-container">
             <table>
                 <thead>
                     <tr>
@@ -59,6 +61,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
 
             <!-- Provide a link to download the masked file -->
             <a href="{{ url_for('download_file') }}" class="btn-download">Download Masked File</a>

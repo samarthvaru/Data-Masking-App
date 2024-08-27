@@ -83,14 +83,13 @@ def upload_file():
         # Store masked data in session
         session['masked_data'] = masked_data
         session['masked_filepath'] = masked_filepath
-        print(session['masked_filepath'])
+        print(f"Masked file path set in session: {masked_filepath}")
 
         return redirect(url_for('index'))  # Redirect to the index page
 
     else:
         message = 'Invalid file format. Please upload a CSV file.'
         return render_template('index.html', message=message)
-
 
 @app.route('/download')
 def download_file():
@@ -100,10 +99,11 @@ def download_file():
     print(f"Retrieved file path from session: {masked_filepath}")
     
     if masked_filepath and os.path.exists(masked_filepath):
-        return send_file(masked_filepath, as_attachment=True)
+        # Set correct headers for file download
+        response = send_file(masked_filepath, as_attachment=True, download_name=os.path.basename(masked_filepath))
+        return response
     
     return "File not found or has been removed."
-
 
 if __name__ == '__main__':
     app.run(debug=True)
