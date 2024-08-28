@@ -30,3 +30,7 @@ This is a Flask-based web application that allows users to upload data files con
 git clone https://github.com/yourusername/data-masking-app.git
 cd data-masking-app
 ```
+
+### Screenshot
+
+![ss.png]
