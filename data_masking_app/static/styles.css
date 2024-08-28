@@ -10,13 +10,13 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #f4f4f4;
+    background-color: #f0f0f5;
     padding: 20px;
 }
 
 h1,
 h2 {
-    color: #007bff;
+    color: #4a90e2;
 }
 
 h1 {
@@ -28,11 +28,38 @@ h1 {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
-    background: #fff;
+    background: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    /* Prevents content from spilling out */
+}
+
+
+/* Responsive adjustments */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        max-width: 100%;
+    }
+    h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    h2 {
+        font-size: 20px;
+    }
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+    .btn-download {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+    .instructions {
+        padding: 15px;
+    }
 }
 
 .file-upload,
@@ -41,8 +68,8 @@ h1 {
 }
 
 button {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #4a90e2;
+    color: #ffffff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -52,7 +79,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #3a78c2;
 }
 
 input[type="file"] {
@@ -61,13 +88,13 @@ input[type="file"] {
 }
 
 .error {
-    color: #dc3545;
+    color: #d9534f;
     font-weight: bold;
     margin-top: 10px;
 }
 
 .success {
-    color: #28a745;
+    color: #5cb85c;
     font-weight: bold;
     margin-top: 10px;
 }
@@ -80,7 +107,7 @@ input[type="file"] {
     /* Prevents horizontal scrolling */
     border: 1px solid #ddd;
     border-radius: 8px;
-    background: #fff;
+    background: #ffffff;
     margin-top: 20px;
 }
 
@@ -106,7 +133,7 @@ th {
 .instructions {
     margin-top: 20px;
     padding: 20px;
-    background: #e9ecef;
+    background: #e2e8f0;
     border-radius: 8px;
 }
 
@@ -123,8 +150,8 @@ th {
 
 .btn-download {
     display: inline-block;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #4a90e2;
+    color: #ffffff;
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
@@ -135,5 +162,32 @@ th {
 }
 
 .btn-download:hover {
-    background-color: #0056b3;
+    background-color: #3a78c2;
+}
+
+
+/* Further responsive adjustments for very small screens */
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    h1 {
+        font-size: 20px;
+    }
+    h2 {
+        font-size: 18px;
+    }
+    button,
+    .btn-download {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+    .instructions {
+        padding: 10px;
+    }
+    th,
+    td {
+        padding: 8px;
+    }
 }
