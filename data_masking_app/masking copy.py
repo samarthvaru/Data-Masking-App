@@ -17,7 +17,7 @@ def mask_sin(ssn):
 def mask_phone_number(phone_number):
     """Mask the phone number by hiding the middle digits."""
     if phone_number and len(phone_number) >= 7:
-        return phone_number[:3] + "*****" + phone_number[-4:]
+        return phone_number[:2] + "*****" + phone_number[-2:]
     return phone_number
 
 def mask_data(row):
@@ -28,9 +28,9 @@ def mask_data(row):
             masked_row[key] = mask_email(value)
         elif re.search(r'credit', key, re.IGNORECASE):
             masked_row[key] = mask_credit_card(value)
-        elif re.search(r'ssn|social.*security|sin', key, re.IGNORECASE):
+        elif re.search(r'ssn', key, re.IGNORECASE):
             masked_row[key] = mask_sin(value)
-        elif re.search(r'phone|telephone', key, re.IGNORECASE):
+        elif re.search(r'phone', key, re.IGNORECASE):
             masked_row[key] = mask_phone_number(value)
         else:
             masked_row[key] = value

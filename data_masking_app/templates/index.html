@@ -4,18 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Masking Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Upload CSV File for Data Masking</h1>
+    <div class="container">
+        <a href="{{ url_for('index') }}" class="title-link">
+            <h1>Data Masking Application</h1>
+        </a>
 
-    <!-- Display the message if it exists -->
-    {% if message %}
-        <p style="color:red;">{{ message }}</p>
-    {% endif %}
+        <!-- Display a success message if applicable -->
+        {% if success_message %}
+            <p class="success">{{ success_message }}</p>
+        {% endif %}
 
-    <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".csv" required>
-        <button type="submit">Upload and Mask Data</button>
-    </form>
+        <!-- Display an error message if applicable -->
+        {% if message %}
+            <p class="error">{{ message }}</p>
+        {% endif %}
+
+        <!-- File upload form -->
+        <div id="file-upload" class="file-upload">
+            <h2>Upload File for Data Masking</h2>
+            <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+                <label for="file_type">Select file type:</label>
+                <select id="file_type" name="file_type" required>
+                    <option value="csv">CSV</option>
+                    <option value="txt">Text</option>
+                </select>
+                <input type="file" name="file" accept=".csv, .txt" required>
+                <button type="submit">Upload and Mask Data</button>
+            </form>
+        </div>
+
+        <!-- Button to upload another file -->
+        <div id="upload-again" class="upload-again hidden">
+            <button onclick="showUploadForm()">Upload Another File</button>
+        </div>
+
+        <!-- Display masked data count -->
+        <h2>Total Masked Data Samples: {{ masked_count }}</h2>
+
+        <!-- Display masked data in table format -->
+        {% if masked_data %}
+            <h2>Masked Data</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            {% for column in masked_data[0].keys() %}
+                                <th>{{ column }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in masked_data %}
+                            <tr>
+                                {% for value in row.values() %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Provide a link to download the masked file -->
+            <a href="{{ url_for('download_file') }}" class="btn-download">Download Masked File</a>
+
+            <!-- Hide the upload form and show the button to upload another file -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.getElementById('file-upload').classList.add('hidden');
+                    document.getElementById('upload-again').classList.remove('hidden');
+                });
+
+                function showUploadForm() {
+                    document.getElementById('file-upload').classList.remove('hidden');
+                    document.getElementById('upload-again').classList.add('hidden');
+                }
+            </script>
+        {% elif masked_text %}
+            <h2>Masked Text Content</h2>
+            <div class="text-content">
+                <pre>{{ masked_text }}</pre>
+            </div>
+
+            <!-- Provide a link to download the masked file -->
+            <a href="{{ url_for('download_file') }}" class="btn-download">Download Masked File</a>
+
+            <!-- Hide the upload form and show the button to upload another file -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.getElementById('file-upload').classList.add('hidden');
+                    document.getElementById('upload-again').classList.remove('hidden');
+                });
+
+                function showUploadForm() {
+                    document.getElementById('file-upload').classList.remove('hidden');
+                    document.getElementById('upload-again').classList.add('hidden');
+                }
+            </script>
+        {% endif %}
+
+        <!-- Instructions for users -->
+        <div class="instructions">
+            <h2>Instructions</h2>
+            <ul>
+                <li>Select the type of file you want to upload (CSV or TXT).</li>
+                <li>For CSV files, the application will mask sensitive information and display it in a table format.</li>
+                <li>For text files, the application will mask sensitive information and display the masked text.</li>
+                <li>After processing, you can download the masked file.</li>
+                <li>Total number of data samples masked will be displayed on the dashboard.</li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
