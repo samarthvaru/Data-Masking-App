@@ -33,4 +33,11 @@ cd data-masking-app
 
 ### Screenshot
 
+- CSV file
+  
 <img src="ss.png" alt="drawing" width="500"/>
+
+- Text File
+
+<img src="ss2.png" alt="drawing" width="500"/>
+
