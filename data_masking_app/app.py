@@ -21,6 +21,7 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 # File to store the masked data count
 MASKED_COUNT_FILE = 'masked_count.txt'
 
+
 def get_masked_count():
     """Read the count of masked data samples from a file."""
     if os.path.exists(MASKED_COUNT_FILE):
@@ -55,6 +56,7 @@ def index():
     # Retrieve masked data from session if available
     masked_data = session.get('masked_data', [])
     masked_text = session.get('masked_text', '')
+
     # Clear the masked data from session
     session.pop('masked_data', None)
     session.pop('masked_text', None)

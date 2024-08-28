@@ -31,6 +31,8 @@ h1 {
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    /* Prevents content from spilling out */
 }
 
 .file-upload,
@@ -70,23 +72,16 @@ input[type="file"] {
     margin-top: 10px;
 }
 
-
-/* Add this to your existing CSS file */
-
 .table-container {
     max-height: 400px;
-    /* Adjust the height as needed */
     overflow-y: auto;
+    /* Adds vertical scrollbar if needed */
     overflow-x: hidden;
-    /* Prevent horizontal scrolling */
+    /* Prevents horizontal scrolling */
     border: 1px solid #ddd;
-    /* Optional: Add border for better visibility */
     border-radius: 8px;
-    /* Optional: Rounded corners */
     background: #fff;
-    /* Optional: Background color */
     margin-top: 20px;
-    /* Space above the table */
 }
 
 table {
@@ -113,4 +108,32 @@ th {
     padding: 20px;
     background: #e9ecef;
     border-radius: 8px;
+}
+
+.text-content {
+    white-space: pre-wrap;
+    /* Preserves whitespace and line breaks */
+    word-wrap: break-word;
+    /* Allows long words to break and wrap */
+    overflow: auto;
+    /* Adds scrollbars if needed */
+    max-width: 100%;
+    /* Ensures the text content does not exceed container width */
+}
+
+.btn-download {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    /* Space above the button */
+}
+
+.btn-download:hover {
+    background-color: #0056b3;
 }
