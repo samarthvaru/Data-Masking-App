@@ -33,4 +33,4 @@ cd data-masking-app
 
 ### Screenshot
 
-![ss.png]
+<img src="ss.png" alt="drawing" width="500"/>
